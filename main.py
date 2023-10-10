@@ -29,7 +29,7 @@ def hex2RGB(val):
 pdf= FPDF('P','mm','A4')
 
 
-# If saving path which is /pdf not exists. Create one.
+# If saving path which is /generated_pdf not exists. Create one.
 pdf_exists = os.path.exists(join(pwd,"generated_pdf")) and os.path.isdir(join(pwd,"generated_pdf"))
 if pdf_exists != True:
     print(pdf_exists)
@@ -1454,48 +1454,39 @@ def page10(pdf):
     # Col2 ######################################3
     col2_vals = ['1 Finance Private Limited','1 Finance','Non-Individual', 'INA000017523','December 22, 2022 - Perpetual','Unit No. 1101 & 1102, 11th Floor, B-Wing, Lotus \nCorporate Park, Goregaon (E), Mumbai-400063','Mr. Akhil Rathi','po@1finance.co.in','Securities and Exchange Board of India, \nSEBI Bhavan II, Plot No: C7, “G” Block, \nBandra Kurla Complex, Bandra (East), Mumbai-400051']
 
-    # x = 241 - 4.1
     x = mm2PX(pdf.get_x() + 74)
     y = 94 + 494 - 14
-    # y = mm2PX(pdf.get_y() + 7)
 
-    for i in range(9 - 1 ): # Excluding last value which is moved to next page.
+    for i in range(8):
         pdf.set_font("Calibri",  size=11)
         pdf.set_text_color(*hex2RGB('#000000'))
 
-        if i == 0 or i == 1 or i == 2 or i == 3:
-            pdf.set_font('Calibri',size=11)
+        if i in [0,1,2,3]:
             pdf.set_xy(px2MM(x),px2MM(y + 3))
             pdf.rect(px2MM(x-1), px2MM(y), px2MM(230), px2MM(40))
             pdf.multi_cell(px2MM(400), px2MM(14),col2_vals[i])
 
-        elif i == 5:
-            pdf.set_font('Calibri',size=11)
+        elif i in [5,8]:
             pdf.set_xy(px2MM(x),px2MM(y + 6))
-            pdf.rect(px2MM(x-1), px2MM(y), px2MM(230), px2MM(60))
+            pdf.rect(px2MM(x-1), px2MM(y), px2MM(230), px2MM(60 if i == 5 else 65))
             pdf.multi_cell(px2MM(280), px2MM(14),col2_vals[i])
-            y += 40
+            y += 40 if i == 5 else 45
 
         elif i == 7:
-                pdf.set_font("Calibri",style = "U" , size=11)   
-                pdf.set_xy(px2MM(x),px2MM(y + 3))
-                pdf.rect(px2MM(x-1), px2MM(y), px2MM(230), px2MM(20))
-                # pdf.set_text_color(*hex2RGB('#0000FF')) # Initially It was set to Blue
-                pdf.set_text_color(*hex2RGB('#000000'))
-                pdf.multi_cell(px2MM(280), px2MM(14),col2_vals[i])
-
-        elif i == 8:
-            pdf.set_font('Calibri',size=11)
-            pdf.set_xy(px2MM(x),px2MM(y + 6))
-            pdf.rect(px2MM(x-1), px2MM(y), px2MM(230), px2MM(65))
+            pdf.set_font("Calibri",style ="U", size=11)   
+            pdf.set_xy(px2MM(x),px2MM(y + 3))
+            pdf.rect(px2MM(x-1), px2MM(y), px2MM(230), px2MM(20))
+            pdf.set_text_color(*hex2RGB('#000000'))
             pdf.multi_cell(px2MM(280), px2MM(14),col2_vals[i])
-            y += 45
-        else:   
-            pdf.set_font('Calibri',size=11)
+        
+        else:
             pdf.set_xy(px2MM(x),px2MM(y + 3))
             pdf.rect(px2MM(x-1), px2MM(y), px2MM(230), px2MM(20))
             pdf.multi_cell(px2MM(400), px2MM(14),col2_vals[i])
+
         y += 20
+
+
         
 def page11(pdf):
 
@@ -1561,7 +1552,7 @@ def page11(pdf):
 
     tab2_counter = y + 30
     tab2_col1_vals_counter = y + 35
-    for i in range(7-1):
+    for i in range(6):
         pdf.set_font("Calibri",  size=11)
         x =  len(table2_col2_vals[i]) / 50
         if x < int(x):
