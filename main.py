@@ -499,29 +499,17 @@ def page3(pdf):
     y = mm2PX(pdf.get_y()) + 70
     pdf.set_xy(px2MM(70), px2MM(y))
     pdf.cell(px2MM(10), px2MM(14),"5.3")
-    
-    # y = mm2PX(pdf.get_y()) + 56
-    # pdf.set_xy(px2MM(70), px2MM(y))
-    # pdf.cell(px2MM(10), px2MM(14),"5.4")
-    
+        
     pt5_text = ("""The client agrees to pay the advisory fee in the manner specified above.""",
                 """Fees must be paid in any manner that allows for the traceability of the fund /amount paid. The modalities of payments may include account payee crossed cheques/Demand drafts, as well as a direct credit to bank accounts via NEFT/RTGS/IMPS/UPI or any other manner specified by SEBI from time to time. The fees, however, must not be paid in cash.""",
                 """In the event of premature termination of the advisory services as per the terms of the agreement, the client shall be refunded the fees for the unexpired period. However, investment advisor may retain a maximum advisory fee of one-quarter.""")
     
-    y = mm2PX(pdf.get_y()) - 28 - 70
-    # y = mm2PX(pdf.get_y())+28
+    y = mm2PX(pdf.get_y()) - 98
     for i in range(3):
-        if i == 4:
-            pdf.set_xy(px2MM(90), px2MM(y))
-            pdf.multi_cell(px2MM(430), px2MM(14),pt5_text[i])
-            y = mm2PX(pdf.get_y())+14
-        else:
-            pdf.set_xy(px2MM(90), px2MM(y))
-            pdf.multi_cell(px2MM(430), px2MM(14),pt5_text[i])
-            y = mm2PX(pdf.get_y())+14
+        pdf.set_xy(px2MM(90), px2MM(y))
+        pdf.multi_cell(px2MM(430), px2MM(14),pt5_text[i])
+        y = mm2PX(pdf.get_y())+14
         
-        
-
     # 6 Point
     y = mm2PX(pdf.get_y())
     pdf.set_font('CalibriBold',size=11)
