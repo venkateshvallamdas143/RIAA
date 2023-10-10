@@ -1412,30 +1412,19 @@ def page10(pdf):
     col1_vals = ['Name as registered with SEBI','Brand name','Type of registration','Registration Number ','Validity of registration','Corporate Office Address', 'Principal Officer', 'Contact details',
     'Corresponding SEBI regional/local \noffice address']
 
-    for i in range(9 - 1):  # Excluding last value which is moved to next page.
-        if i == 0:
-            pdf.set_font('Calibri',size=11)
+    for i in range(8):
+        pdf.set_font('Calibri',size=11)
+
+        if i in [5,8]:
+            pdf.rect(px2MM(65 + 2), px2MM(math.floor(y)), px2MM(170), px2MM(60 if i == 5 else 65),'D')
+            pdf.set_xy(px2MM(x),px2MM(y + 6))
+            pdf.multi_cell(px2MM(400), px2MM(14),col1_vals[i])
+            y  += 40 if i == 5 else 45
+        else:
             pdf.set_xy(px2MM(x),px2MM(y + 3))
             pdf.rect(px2MM(65 + 2), px2MM(math.floor(y)), px2MM(170), px2MM(20),'D')
             pdf.multi_cell(px2MM(400), px2MM(14),col1_vals[i])
 
-        elif i == 5:
-            pdf.rect(px2MM(65 + 2), px2MM(math.floor(y)), px2MM(170), px2MM(60),'D')
-            pdf.set_font('Calibri',size=11)
-            pdf.set_xy(px2MM(x),px2MM(y + 6))
-            pdf.multi_cell(px2MM(400), px2MM(14),col1_vals[i])
-            y  += 40
-        elif i == 8:
-            pdf.rect(px2MM(65 + 2), px2MM(math.floor(y)), px2MM(170), px2MM(65),'D')
-            pdf.set_font('Calibri',size=11)
-            pdf.set_xy(px2MM(x),px2MM(y + 6))
-            pdf.multi_cell(px2MM(400), px2MM(14),col1_vals[i])
-            y += 45
-        else:
-            pdf.set_font('Calibri',size=11)
-            pdf.set_xy(px2MM(x),px2MM(y + 3))
-            pdf.rect(px2MM(65 + 2), px2MM(math.floor(y)), px2MM(170), px2MM(20),'D')
-            pdf.multi_cell(px2MM(400), px2MM(14),col1_vals[i])
         y += 20
     
     y = 94 #Resseting y to the begining of the table
@@ -1443,7 +1432,7 @@ def page10(pdf):
     col2_vals = ['1 Finance Private Limited','1 Finance','Non-Individual', 'INA000017523','December 22, 2022 - Perpetual','Unit No. 1101 & 1102, 11th Floor, B-Wing, Lotus \nCorporate Park, Goregaon (E), Mumbai-400063','Mr. Akhil Rathi','po@1finance.co.in','Securities and Exchange Board of India, \nSEBI Bhavan II, Plot No: C7, “G” Block, \nBandra Kurla Complex, Bandra (East), Mumbai-400051']
 
     x = mm2PX(pdf.get_x() + 74)
-    y = 94 + 494 - 14
+    y = 574
 
     for i in range(8):
         pdf.set_font("Calibri",  size=11)
